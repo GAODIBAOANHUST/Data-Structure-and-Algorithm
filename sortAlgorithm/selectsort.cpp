@@ -4,6 +4,7 @@
 using namespace std;
 
 //选择排序:通过n-i次关键字的比较，从n-i+1个记录中选出关键字最小的记录，并和第i个记录交换
+//时间复杂度O(n^2),交换次数少于冒泡排序
 void SelectSort(vector<int>& arr){
     int n=arr.size();
     for(int i=0;i<n-1;++i){
