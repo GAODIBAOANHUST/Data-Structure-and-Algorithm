@@ -5,6 +5,7 @@ using namespace std;
 
 //插入排序基本思想是将一个记录插入到已经排好序的有序表中，从而得到一个新的、记录数增加1的有序表
 //时间复杂度O(n^2)
+//在数组基本有序或者记录数比较少时，直接插入排序的优势比较明显
 void InsertSort(vector<int>& arr){
     int n=arr.size();
     for(int i=1;i<n;++i){
