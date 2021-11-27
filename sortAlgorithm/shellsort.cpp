@@ -14,23 +14,39 @@ void ShellSort(vector<int>& arr){
     while(gap<n/3){
         gap=gap*3+1;
     }
+    // while(gap>=1){
+    //     for(int i=gap;i<n;++i){
+    //         //对arr[i],arr[i-gap],arr[i-2*gap]...进行插入排序
+    //         int temp=arr[i];
+    //         int j=i-gap;
+    //         while(j>=0&&arr[j]>temp){
+    //             arr[j+gap]=arr[j];
+    //             j-=gap;
+    //         }
+    //         arr[j+gap]=temp;
+    //     }
+    //     gap/=3;
+    // }
     while(gap>=1){
-        for(int i=gap;i<n;++i){
-            //对arr[i],arr[i-gap],arr[i-2*gap]...进行插入排序
-            int temp=arr[i];
-            int j=i-gap;
-            while(j>=0&&arr[j]>temp){
-                arr[j+gap]=arr[j];
-                j-=gap;
+        //对每一组进行插入排序
+        for(int i=0;i<gap;++i){
+            //对arr[i],arr[i+gap],arr[i+2*gap]进行插入排序
+            int j=i+gap;
+            while(j<n){
+                for(int temp=j;temp>=gap;temp-=gap){
+                    if(arr[temp-gap]>arr[temp]){
+                        swap(arr[temp-gap],arr[temp]);
+                    }
+                }
+                j+=gap;
             }
-            arr[j+gap]=temp;
         }
         gap/=3;
     }
 }
 
 int main(){
-    vector<int> arr{9,1,5,8,3,7,4,6,2};
+    vector<int> arr{9,1,5,8,3,7,4,6,2,3,5,7,3,8,1,5,6};
     ShellSort(arr);
     for(int i:arr){
         cout<<i<<" ";
