@@ -49,7 +49,6 @@ void MergeSort(vector<int>& arr){
 int main()
 {
     vector<int> arr{9, 1, 5, 8, 3, 7, 4, 6, 2, 3, 5, 7, 3, 8, 1, 5, 6};
-    //QuickSort0(arr);
     MergeSort(arr);
     for (int i : arr)
     {
