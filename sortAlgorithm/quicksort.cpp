@@ -46,7 +46,7 @@ void MyQuickSort1(vector<int>& arr,int low,int high){
     if(low>=high){
         return;
     }
-    int mid=(low+high-low>>1);
+    int mid=low+(high-low>>1);
     if(arr[low]>arr[high]){
         //交换左端与右端数据，保证左端较小
         swap(arr[low],arr[high]);
