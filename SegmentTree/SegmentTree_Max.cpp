@@ -107,7 +107,7 @@ public:
 };
 
 //leetcode 218 天际线问题
-class Solution {
+class Solution218 {
 public:
     vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
         set<int> st;
@@ -135,7 +135,7 @@ public:
             int curr=Tree.query(i,i,0,indexes.size()-1,1);
             if(curr!=last){
                 res.push_back({rindexes[i],curr});
-                curr=last;
+                last=curr;
             }
         }
         return res;
@@ -143,6 +143,8 @@ public:
 };
 
 int main(){
+    vector<vector<int>> buildings{{2,9,10},{3,7,15},{5,12,12},{15,20,10},{19,24,8}};
+    vector<vector<int>> res=Solution218().getSkyline(buildings);
     system("pause");
     return 0;
 }
