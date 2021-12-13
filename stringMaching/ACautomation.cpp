@@ -1,7 +1,7 @@
-//ACè‡ªåŠ¨æœº
-//å­—å…¸æ ‘ï¼ŒBFS
-//åº”ç”¨åœºæ™¯,ç»™å®šå­—ç¬¦ä¸²ç»„wordså’Œæ¨¡å¼ä¸²t,æ‰¾å‡ºåœ¨tä¸­å¯ä»¥æ‰¾åˆ°çš„wordsä¸­å‡ºç°çš„å­—ç¬¦ä¸²
-//å‡è®¾å­—ç¬¦ä¸²å’Œå­—ç¬¦ä¸²æ•°ç»„å‡ä¸ºå°å†™å­—æ¯
+//AC×Ô¶¯»ú
+//×ÖµäÊ÷£¬BFS
+//Ó¦ÓÃ³¡¾°,¸ø¶¨×Ö·û´®×éwordsºÍÄ£Ê½´®t,ÕÒ³öÔÚtÖĞ¿ÉÒÔÕÒµ½µÄwordsÖĞ³öÏÖµÄ×Ö·û´®
+//¼ÙÉè×Ö·û´®ºÍ×Ö·û´®Êı×é¾ùÎªĞ¡Ğ´×ÖÄ¸
 #include <iostream>
 #include <vector>
 #include <string>
@@ -10,11 +10,11 @@
 
 using namespace std;
 
-//buildè¡¨ç¤ºæ„å»ºä¸€ä¸ªå¸¦failæŒ‡é’ˆçš„å­—å…¸æ ‘:æŒ‰ç…§ä¹‹å‰çš„insertå‡½æ•°å°†æ‰€æœ‰wordæ’å…¥åˆ°å­—å…¸æ ‘ä¹‹åï¼Œé‡‡ç”¨BFSéå†,queryè¡¨ç¤ºæŸ¥è¯¢wordsä¸­çš„wordæ˜¯å¦åœ¨æ¨¡å¼ä¸²tä¸­å‡ºç°
-//ä¸€ä¸ªèŠ‚ç‚¹çš„failæŒ‡é’ˆè¡¨ç¤º
-//step1: æŠŠwordsä¸­æ¯ä¸€ä¸ªwordæ’å…¥åˆ°å­—å…¸æ ‘ä¸­
-//step2: BFSå»ºç«‹failæŒ‡é’ˆ,é¦–å…ˆæ’å…¥ç¬¬ä¸€å±‚çš„èŠ‚ç‚¹ï¼Œä»¤å…¶èŠ‚ç‚¹çš„failæŒ‡é’ˆæŒ‡å‘rootã€‚ä¹‹åå†éå†åé¢å±‚
-//step3: å®ç°æŸ¥è¯¢å‡½æ•°query
+//build±íÊ¾¹¹½¨Ò»¸ö´øfailÖ¸ÕëµÄ×ÖµäÊ÷:°´ÕÕÖ®Ç°µÄinsertº¯Êı½«ËùÓĞword²åÈëµ½×ÖµäÊ÷Ö®ºó£¬²ÉÓÃBFS±éÀú,query±íÊ¾²éÑ¯wordsÖĞµÄwordÊÇ·ñÔÚÄ£Ê½´®tÖĞ³öÏÖ
+//Ò»¸ö½ÚµãµÄfailÖ¸Õë±íÊ¾i->fail=j,¼´word[j]ÊÇword[i]µÄ×î³¤ºó×º
+//step1: °ÑwordsÖĞÃ¿Ò»¸öword²åÈëµ½×ÖµäÊ÷ÖĞ
+//step2: BFS½¨Á¢failÖ¸Õë,Ê×ÏÈ²åÈëµÚÒ»²ãµÄ½Úµã£¬ÁîÆä½ÚµãµÄfailÖ¸ÕëÖ¸Ïòroot¡£Ö®ºóÔÙ±éÀúºóÃæ²ã
+//step3: ÊµÏÖ²éÑ¯º¯Êıquery
 class ACTrie{
 public:
     ACTrie():next(26,nullptr),fail(nullptr) {}
@@ -32,35 +32,35 @@ public:
 
     void build(){
         ACTrie* root=this;
-       //å…ˆå°†ç¬¬ä¸€å±‚è¿›å…¥é˜Ÿåˆ—ï¼Œä»¤å…¶failæŒ‡å‘root
-       for(int i=0;i<26;++i){
-           if(root->next[i]){
-               Q.push(root->next[i]);
-               root->next[i]->fail=root;
-           }
+        //ÏÈ½«µÚÒ»²ã½øÈë¶ÓÁĞ£¬ÁîÆäfailÖ¸Ïòroot
+        for(int i=0;i<26;++i){
+            if(root->next[i]){
+                Q.push(root->next[i]);
+                root->next[i]->fail=root;
+            }
         } 
         while(!Q.empty()){
             auto curr=Q.front();
             Q.pop();
-            //å¤„ç†currçš„å­èŠ‚ç‚¹çš„failæŒ‡é’ˆ
+            //´¦ÀícurrµÄ×Ó½ÚµãµÄfailÖ¸Õë
             for(int i=0;i<26;++i){
                 if(curr->next[i]){
                     ACTrie* child=curr->next[i];
-                    //fafailè¡¨ç¤ºcurrçš„failæŒ‡é’ˆ
+                    //fafail±íÊ¾currµÄfailÖ¸Õë
                     ACTrie* fafail=curr->fail;
-                    //fafailæ²¿ç€failæŒ‡é’ˆä¸åœçš„è¿½æº¯ï¼Œç›´åˆ°æ‰¾åˆ°æˆ–è€…failä¸ºç©º
+                    //fafailÑØ×ÅfailÖ¸Õë²»Í£µÄ×·Ëİ£¬Ö±µ½ÕÒµ½»òÕßfailÎª¿Õ
                     while(fafail&&fafail->next[i]==nullptr){
                         fafail=fafail->fail;
                     }
-                    //é€€å‡ºå¾ªç¯çš„æƒ…å†µè®¨è®º
-                    if(fail==nullptr){
+                    //ÍË³öÑ­»·µÄÇé¿öÌÖÂÛ
+                    if(fafail==nullptr){
                         child->fail=root;
                     }else{
                         child->fail=fafail->next[i];
                     }
-                    //æ›´æ–°existä¿¡æ¯
+                    //¸üĞÂexistĞÅÏ¢
                     if(!child->fail->exit.empty()){
-                        //æŠŠfailèŠ‚ç‚¹çš„existä¿¡æ¯æ›´æ–°åˆ°è¯¥èŠ‚ç‚¹æ¥
+                        //°Ñfail½ÚµãµÄexistĞÅÏ¢¸üĞÂµ½¸Ã½ÚµãÀ´
                         for(int i:child->fail->exit){
                             child->exit.push_back(i);
                         }
@@ -76,24 +76,24 @@ public:
         for(int i=0;i<t.length();++i){
             int curr=t[i]-'a';
             while(root->next[curr]==nullptr&&root->fail){
-                //é¡ºç€failæŒ‡é’ˆå»å¯»æ‰¾
+                //Ë³×ÅfailÖ¸ÕëÈ¥Ñ°ÕÒ
                 root=root->fail;
             }
-            //é€€å‡ºå¾ªç¯æƒ…å†µè®¨è®º
+            //ÍË³öÑ­»·Çé¿öÌÖÂÛ
             if(root->next[curr]){
                 root=root->next[curr];
             }else{
-                //åˆ°æ ¹èŠ‚ç‚¹äº†
+                //µ½¸ù½ÚµãÁË
                 continue;
             }
             if(!root->exit.empty()){
-                //ä¾æ¬¡è¯»å–é•¿åº¦
-                for(int j=0;j<root->exit.size();++i){
+                //ÒÀ´Î¶ÁÈ¡³¤¶È
+                for(int j=0;j<root->exit.size();++j){
                     int len=root->exit[j];
-                    //æ‰¾åˆ°ä¸€ä¸ªpä¸²çš„å•è¯
-                    //è¾“å‡º,å…·ä½“æŒ‰ç…§é¢˜ç›®è¦æ±‚
+                    //ÕÒµ½Ò»¸öp´®µÄµ¥´Ê
+                    //Êä³ö,¾ßÌå°´ÕÕÌâÄ¿ÒªÇó
                     int start=i-len+1;
-                    cout<<"æ‰¾åˆ°å­—ç¬¦ä¸²ä¸º:"<<t.substr(start,len)<<"åœ¨æ¨¡å¼ä¸²tä¸­çš„èµ·ç‚¹ä¸º:"<<start<<endl;
+                    cout<<"ÕÒµ½×Ö·û´®Îª:"<<t.substr(start,len)<<"ÔÚÄ£Ê½´®tÖĞµÄÆğµãÎª:"<<start<<endl;
                 }
             }
         }
@@ -107,8 +107,14 @@ private:
 };
 
 int main(){
-    vector<string> words;
-    string t;
+    vector<string> words{"he","hers","his","she"};
+    string t("ahishers");
+    ACTrie* trie=new ACTrie();
+    for(string& word:words){
+        trie->insert(word);
+    }
+    trie->build();
+    trie->query(t);
     system("pause");
     return 0;
 }
