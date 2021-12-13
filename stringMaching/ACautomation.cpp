@@ -108,7 +108,7 @@ private:
 
 int main(){
     vector<string> words{"he","hers","his","she"};
-    string t("ahishers");
+    string t("ahishersheishiser");
     ACTrie* trie=new ACTrie();
     for(string& word:words){
         trie->insert(word);
