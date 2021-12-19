@@ -116,6 +116,66 @@ public:
     }
 };
 
+//Morris遍历改二叉树后序遍历
+//对于只能访问一次的节点,第一次访问之后什么也不做,第二次访问时逆序打印该节点左子树的右边界
+//最后打印整个二叉树的右边界
+class Solution_Iteration3{
+private:
+    vector<int> res;
+
+    TreeNode* Reverse(TreeNode* node){
+        TreeNode* pre=nullptr;
+        while(node){
+            TreeNode* Right=node->right;
+            node->right=pre;
+            pre=node;
+            node=Right;
+        }
+        return pre;
+    }
+
+    void PrintEdge(TreeNode* node){
+        //反转节点并接收
+        TreeNode* tail=Reverse(node);
+        TreeNode* curr=tail;
+        while(curr){
+            res.push_back(curr->val);
+            curr=curr->right;
+        }
+        Reverse(tail);
+    }
+
+public:
+    vector<int> MorrisPostTraverse(TreeNode* root){
+        if(!root)
+            return res;
+        TreeNode* mostright=nullptr;
+        TreeNode* curr=root;
+        while(curr){
+            mostright=curr->left;
+            if(mostright){
+                while(mostright->right&&mostright->right!=curr){
+                    mostright=mostright->right;
+                }
+                //退出情况
+                if(mostright->right==nullptr){
+                    mostright->right=curr;
+                    curr=curr->left;
+                    continue;
+                }else{
+                    //第二次来到该节点
+                    mostright->right=nullptr;
+                    //逆序打印左边界
+                    PrintEdge(curr->left);
+                }
+            }
+            curr=curr->right;
+        }
+        PrintEdge(root);
+        return res;
+    }
+};
+
 int main(){
     system("pause");
     return 0;
