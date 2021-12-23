@@ -39,7 +39,7 @@ public:
             pArr[i]=R>i?min(pArr[2*C-i],R-i):1;
             //考虑是否可以扩展
             while(i+pArr[i]<lens&&i-pArr[i]>-1){
-                if(str[i+pArr[i]]!=str[i+pArr[i]]){
+                if(str[i-pArr[i]]!=str[i+pArr[i]]){
                     //失败直接退出,已经无法构成回文串
                     break;
                 }
@@ -57,7 +57,7 @@ public:
                 max_len_index=i;
             }
         }
-        //对应到s中的最长回文子串
+        //对应到s中的最长回文子串,需要找规律试一下
         return s.substr(max_len_index-(max_len-2)>>1,max_len-1);
     }
 };
